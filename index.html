@@ -410,7 +410,7 @@
 							"draw-size-bubbles": false,
 							"left-right-spacing": "fixed-step",
 							"node-styler": node_colorizer,
-							"edge-styler": edge_colorizer
+							"edge-styler": colorEdgesByTarget
 						});
 
 						tree.display.selectionLabel(current_selection_name);
@@ -647,7 +647,7 @@
             "draw-size-bubbles": false,
             "node-styler": node_colorizer,
             zoom: false,
-            "edge-styler": edge_colorizer
+            "edge-styler": colorEdgesByTarget
           });
 
           tree.display.selectionLabel(current_selection_name);
@@ -731,6 +731,21 @@
           }
         } catch (e) {}
       }
+
+function colorEdgesByTarget(element, data) {
+  edge_colorizer(element, data); // Retain original styling logic
+
+    var name = data.target.data.name;
+    if (name.startsWith('T')) {
+        element.style("stroke", "#b65057");
+        element.style("stroke-width", 5);
+    } else if (name.startsWith('N')) {
+        element.style("stroke", "#639cbe");
+        element.style("stroke-width", 5);
+    }
+}
+
+
 
       var valid_id = new RegExp("^[\\w]+$");
 
@@ -1135,7 +1150,7 @@
           "node-styler": node_colorizer,
           "font-size": 12,
           zoom: false,
-          "edge-styler": edge_colorizer
+          "edge-styler": colorEdgesByTarget
         });
 
         $('#tree_container').on('reroot', function (e) {  
