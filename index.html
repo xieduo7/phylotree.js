@@ -380,6 +380,16 @@
           </div>
         </div>
 
+        <div class="container">
+          <!-- Existing Content -->
+          <div class="row">
+            <div class="col-md-4">
+              <label class="pull-right">
+                <b>Sample name:</b>
+                <span class="badge badge-secondary" id="currentSampleName">0</span>
+              </label>
+            </div>
+          </div>
 
       <div class="row">
         <div class="col-md-12">
@@ -393,6 +403,55 @@
 -->
 
     <script>
+      const tipAnnToLabelMap = {
+  "132_T1": "IBD132_T1",
+  "142_T1": "IBD142_T1",
+  "142_T2": "IBD142_T2",
+  "142_T5": "IBD142_T5",
+  "148_T1": "IBD148_T1",
+  "148_T3": "IBD148_T3",
+  "151_T4": "IBD151_T4",
+  "16_T": "IBD16_T",
+  "17_T4": "IBD17_T4",
+  "18_T3": "IBD18_T3",
+  "18_T4": "IBD18_T4",
+  "19_T1": "IBD19_T1",
+  "19_T3": "IBD19_T3",
+  "19_T4": "IBD19_T4",
+  "19_T5": "IBD19_T5",
+  "47_T1": "IBD47_T1",
+  "47_T4": "IBD47_T4",
+  "47_T5": "IBD47_T5",
+  "47_T6": "IBD47_T6",
+  "47_T8": "IBD47_T8",
+  "49_T1": "IBD49_T1",
+  "49_T3": "IBD49_T3",
+  "4_T": "IBD4_T",
+  "50_T": "IBD50_T",
+  "5_T": "IBD5_T",
+  "65_T1": "IBD65_T1",
+  "65_T3": "IBD65_T3",
+  "66_T": "IBD66_T",
+  "68_Ade1": "Apc68_P1",
+    "68_Ade3": "Apc68_P3",
+    "68_Ade2": "Apc68_P2",
+    "68_Ade4": "Apc68_P4",
+    "68_Ade5": "Apc68_P5",
+    "72_Ade1": "Apc72_P1",
+    "72_Ade2": "Apc72_P2",
+    "72_Ade4": "Apc72_P4",
+    "72_Ade5": "Apc72_P5",
+    "72_Ade6": "Apc72_P6",
+    "72_Ade8": "Apc72_P8",
+    "72_Ade9": "Apc72_P9"
+};
+
+// Function to get Label by TipAnn
+function getLabelByTipAnn(tipAnn) {
+  return tipAnnToLabelMap[tipAnn] || 'Label not found';
+}
+
+
       var phylotree_extensions = new Object();
 
       $("#newick_export_modal").on("show.bs.modal", function(e) {
@@ -411,10 +470,15 @@
           })
         );
       });
+      var currentSampleName = '';
 
       function btnActionpar(itemID)
     {
-        getNewickFromURL(`data/phylogeny/${itemID}_filtered_re_rescale.nwk`)
+        getNewickFromURL(`data/phylogeny/${itemID}_filtered_re_rescale.nwk`);
+        currentSampleName = getLabelByTipAnn(itemID);
+        console.log("Current sample name: ", currentSampleName);
+        // Update the content of the <span> to show the current sample name
+    document.getElementById('currentSampleName').textContent = currentSampleName;
     }
       function getNewickFromURL(url) {
 				d3.text(url).then(res => {
