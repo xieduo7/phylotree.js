@@ -105,8 +105,43 @@
               >Select a cell phylogeny <b class="caret"></b>
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a onclick="btnAction()" class="dropdown-item" href="#">4_T</a>
-            <a onclick="btnAction1()" class="dropdown-item" href="#">49_T3</a>
+              <a onclick="btnActionpar('151_T4')" class="dropdown-item" href="#">IBD151_T4</a>
+              <a onclick="btnActionpar('47_T6')" class="dropdown-item" href="#">IBD47_T6</a>
+              <a onclick="btnActionpar('47_T8')" class="dropdown-item" href="#">IBD47_T8</a>
+              <a onclick="btnActionpar('17_T4')" class="dropdown-item" href="#">IBD17_T4</a>
+              <a onclick="btnActionpar('19_T4')" class="dropdown-item" href="#">IBD19_T4</a>
+              <a onclick="btnActionpar('18_T4')" class="dropdown-item" href="#">IBD18_T4</a>
+              <a onclick="btnActionpar('19_T5')" class="dropdown-item" href="#">IBD19_T5</a>
+              <a onclick="btnActionpar('50_T')" class="dropdown-item" href="#">IBD50_T</a>
+              <a onclick="btnActionpar('18_T3')" class="dropdown-item" href="#">IBD18_T3</a>
+              <a onclick="btnActionpar('142_T2')" class="dropdown-item" href="#">IBD142_T2</a>
+              <a onclick="btnActionpar('47_T4')" class="dropdown-item" href="#">IBD47_T4</a>
+              <a onclick="btnActionpar('19_T1')" class="dropdown-item" href="#">IBD19_T1</a>
+              <a onclick="btnActionpar('132_T1')" class="dropdown-item" href="#">IBD132_T1</a>
+              <a onclick="btnActionpar('47_T5')" class="dropdown-item" href="#">IBD47_T5</a>
+              <a onclick="btnActionpar('142_T5')" class="dropdown-item" href="#">IBD142_T5</a>
+              <a onclick="btnActionpar('148_T3')" class="dropdown-item" href="#">IBD148_T3</a>
+              <a onclick="btnActionpar('65_T3')" class="dropdown-item" href="#">IBD65_T3</a>
+              <a onclick="btnActionpar('47_T1')" class="dropdown-item" href="#">IBD47_T1</a>
+              <a onclick="btnActionpar('148_T1')" class="dropdown-item" href="#">IBD148_T1</a>
+              <a onclick="btnActionpar('5_T')" class="dropdown-item" href="#">IBD5_T</a>
+              <a onclick="btnActionpar('19_T3')" class="dropdown-item" href="#">IBD19_T3</a>
+              <a onclick="btnActionpar('66_T')" class="dropdown-item" href="#">IBD66_T</a>
+              <a onclick="btnActionpar('4_T')" class="dropdown-item" href="#">IBD4_T</a>
+              <a onclick="btnActionpar('16_T')" class="dropdown-item" href="#">IBD16_T</a>
+              <a onclick="btnActionpar('142_T1')" class="dropdown-item" href="#">IBD142_T1</a>
+              <a onclick="btnActionpar('68_Ade1')" class="dropdown-item" href="#">Apc68_P1</a>
+              <a onclick="btnActionpar('68_Ade2')" class="dropdown-item" href="#">Apc68_P2</a>
+              <a onclick="btnActionpar('68_Ade3')" class="dropdown-item" href="#">Apc68_P3</a>
+              <a onclick="btnActionpar('68_Ade4')" class="dropdown-item" href="#">Apc68_P4</a>
+              <a onclick="btnActionpar('68_Ade5')" class="dropdown-item" href="#">Apc68_P5</a>
+              <a onclick="btnActionpar('72_Ade1')" class="dropdown-item" href="#">Apc72_P1</a>
+              <a onclick="btnActionpar('72_Ade2')" class="dropdown-item" href="#">Apc72_P2</a>
+              <a onclick="btnActionpar('72_Ade4')" class="dropdown-item" href="#">Apc72_P4</a>
+              <a onclick="btnActionpar('72_Ade5')" class="dropdown-item" href="#">Apc72_P5</a>
+              <a onclick="btnActionpar('72_Ade6')" class="dropdown-item" href="#">Apc72_P6</a>
+              <a onclick="btnActionpar('72_Ade8')" class="dropdown-item" href="#">Apc72_P8</a>
+              <a onclick="btnActionpar('72_Ade9')" class="dropdown-item" href="#">Apc72_P9</a>
             </div>
         </li>
       </ul>
@@ -319,13 +354,13 @@
                 class="btn btn-light btn-sm active phylotree-text-mode"
                 data-mode="text"
               >
-                Show text
+                Display tip labels
               </button>
               <button
                 class="btn btn-light btn-sm phylotree-text-mode"
                 data-mode="no_text"
               >
-                Hide text
+                Hide tip labels
               </button>
             </div>
             <div class="btn-group" role="group">
@@ -377,13 +412,9 @@
         );
       });
 
-      function btnAction()
+      function btnActionpar(itemID)
     {
-        getNewickFromURL("data/4_T_filtered_re_rescale.nwk")
-    }
-      function btnAction1()
-    {
-        getNewickFromURL("data/49_T3_filtered_re_rescale.nwk")
+        getNewickFromURL(`data/phylogeny/${itemID}_filtered_re_rescale.nwk`)
     }
       function getNewickFromURL(url) {
 				d3.text(url).then(res => {
@@ -698,9 +729,11 @@
         var m = (data.data.name).split("_");
     // New logic to color the tip if the label starts with 'T'
     // Assuming 'label' is accessible in a similar manner as 'name', for example
-        if (m[0] && m[0].charAt(0) === 'T') { // Check if the first part of the name starts with 'T'
+        if (m[0] && m[0].charAt(0) === 'T' ) { // Check if the first part of the name starts with 'T'
           element.style("stroke", "#b65057", 'important'); // Replace 'desired_color_for_T' with the actual color
-        // Note: The 'important' flag ensures this style overrides previous styles if condition is met
+        }
+        if (m[0] && m[0].charAt(0) === 'A') { // Check if the first part of the name starts with 'T'
+          element.style("stroke", "#b65057", 'important'); // Replace 'desired_color_for_T' with the actual color
         }
         if (m[0] && m[0].charAt(0) === 'N') { // Check if the first part of the name starts with 'T'
           element.style("stroke", "#639cbe", 'important'); // Replace 'desired_color_for_T' with the actual color
@@ -732,17 +765,26 @@
         } catch (e) {}
       }
 
-function colorEdgesByTarget(element, data) {
+      function colorEdgesByTarget(element, data) {
   edge_colorizer(element, data); // Retain original styling logic
 
-    var name = data.target.data.name;
-    if (name.startsWith('T')) {
-        element.style("stroke", "#b65057");
-        element.style("stroke-width", 5);
-    } else if (name.startsWith('N')) {
-        element.style("stroke", "#639cbe");
-        element.style("stroke-width", 5);
-    }
+  var name = data.target.data.name;
+  // Check for specific 'Ade5-x' patterns first
+  if (name.startsWith('Ade5-2')) {
+    element.style("stroke", "#75a43a").style("stroke-width", 5);
+  } else if (name.startsWith('Ade5-3')) {
+    element.style("stroke", "#4b9c7a").style("stroke-width", 5);
+  } else if (name.startsWith('Ade5-4')) {
+    element.style("stroke", "#7470ae").style("stroke-width", 5);
+  } else if (name.startsWith('Ade5-5')) {
+    element.style("stroke", "#ca6627").style("stroke-width", 5);
+  // Then check for broader categories
+  } else if (name.startsWith('T') || name.startsWith('Ade')) {
+    element.style("stroke", "#b65057").style("stroke-width", 5);
+  } else if (name.startsWith('N')) {
+    element.style("stroke", "#639cbe").style("stroke-width", 5);
+  }
+  // Additional or default styles could be added here
 }
 
 
